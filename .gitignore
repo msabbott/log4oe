@@ -1,0 +1,9 @@
+
+# Exclude .r files
+*.r
+
+# Exclude PDSOE files
+.project
+.propath
+.settings
+
