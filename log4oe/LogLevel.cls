@@ -1,20 +1,20 @@
- 
+
  /*------------------------------------------------------------------------
     File        : LogLevel
-    Purpose     : 
-    Syntax      : 
-    Description : 
+    Purpose     :
+    Syntax      :
+    Description :
     Author(s)   : Mark Abbott
     Created     : Tue May 29 20:28:41 BST 2018
-    Notes       : 
+    Notes       :
   ----------------------------------------------------------------------*/
 
 USING Progress.Lang.*.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
-CLASS log4oe.LogLevel ABSTRACT: 
-    
+CLASS log4oe.LogLevel ABSTRACT:
+
     DEFINE PUBLIC STATIC PROPERTY ALL   AS INTEGER NO-UNDO INITIAL 7 GET.
     DEFINE PUBLIC STATIC PROPERTY TRACE AS INTEGER NO-UNDO INITIAL 6 GET.
     DEFINE PUBLIC STATIC PROPERTY DEBUG AS INTEGER NO-UNDO INITIAL 5 GET.
