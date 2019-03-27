@@ -1,12 +1,12 @@
- 
+
  /*------------------------------------------------------------------------
     File        : DSLogManagerAppender
-    Purpose     : 
-    Syntax      : 
-    Description : 
+    Purpose     :
+    Syntax      :
+    Description :
     Author(s)   : Mark Abbott
     Created     : Wed May 30 15:06:42 BST 2018
-    Notes       : 
+    Notes       :
   ----------------------------------------------------------------------*/
 
 USING Progress.Lang.*.
@@ -18,16 +18,16 @@ BLOCK-LEVEL ON ERROR UNDO, THROW.
 CLASS log4oe.LogAppender.DSLogManagerAppender INHERITS AbstractLogAppender IMPLEMENTS ILogAppender:
 
     METHOD PUBLIC OVERRIDE VOID Log(INPUT pcMessage AS CHARACTER):
-        
+
         IF Config:getSubsystemName() NE "" AND Config:getSubsystemName() NE ? THEN
         DO:
-            LOG-MANAGER:WRITE-MESSAGE(pcMessage).
+            DSLOG-MANAGER:WRITE-MESSAGE(pcMessage).
         END.
         ELSE
         DO:
-            LOG-MANAGER:WRITE-MESSAGE(pcMessage, Config:getSubsystemName()).
+            DSLOG-MANAGER:WRITE-MESSAGE(pcMessage, Config:getSubsystemName()).
         END.
-        
+
     END METHOD.
 
 END CLASS.
