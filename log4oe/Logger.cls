@@ -30,6 +30,12 @@ CLASS log4oe.Logger:
 
     END METHOD.
 
+    METHOD PUBLIC STATIC VOID ResetLogger():
+
+        DELETE OBJECT DefaultLogger NO-ERROR.
+
+    END METHOD.
+
     METHOD PUBLIC STATIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER):
 
         InitialiseDefaultLogger().
