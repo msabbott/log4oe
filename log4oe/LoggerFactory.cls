@@ -95,4 +95,15 @@ CLASS log4oe.LoggerFactory:
 
     END METHOD.
 
+    METHOD PUBLIC STATIC VOID ResetFactory():
+
+        DELETE OBJECT Config NO-ERROR.
+
+        FOR EACH ttLogger EXCLUSIVE-LOCK:
+            DELETE OBJECT ttLogger.Logger NO-ERROR.
+            DELETE ttLogger.
+        END.
+
+    END METHOD.
+
 END CLASS.
