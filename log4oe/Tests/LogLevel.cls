@@ -1,11 +1,11 @@
  /*------------------------------------------------------------------------
     File        : LogLevel
-    Purpose     : 
-    Syntax      : 
+    Purpose     :
+    Syntax      :
     Description : Unit tests for LogLevel class
     Author(s)   : Mark Abbott
     Created     : Wed Mar 27 15:19:27 GMT 2019
-    Notes       : 
+    Notes       :
   ----------------------------------------------------------------------*/
 
 USING Progress.Lang.*.
@@ -14,8 +14,8 @@ USING log4oe.LogLevel.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
-CLASS log4oe.Tests.LogLevel: 
-    
+CLASS log4oe.Tests.LogLevel:
+
     @Test.
     METHOD PUBLIC VOID ConfirmLogLevelValues():
         Assert:AreEqual(LogLevel:ALL,   7, "LogLevel:ALL should be 7, but was not.").
