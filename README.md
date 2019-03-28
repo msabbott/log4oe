@@ -16,12 +16,18 @@ Give examples
 
 ### Developing for log4oe
 
-To development on the framework (e.g. creating new features, bug fixing, etc) follow the steps below. For information on how to use the framework in your application, and to deploy the code, see the Deployment section.
+To develop on the framework (e.g. creating new features, bug fixing, etc) follow the steps below. For information on how to use the framework in your application, and to deploy the code, see the Deployment section.
 
 Download the framework source from this repository using Git.
 ```
 git clone https://github.com/msabbott/log4oe.git /oelibraries/log4oe
 ```
+
+#### Unit Tests
+
+Unit tests are written using OEUnit, and therefore an installation of this library is required to run, create or amend unit tests.
+
+To run all unit tests, the file log4oe/Tests/AllTests.cls can be run, this file includes all tests suites available. 
 
 ## Using log4oe
 
@@ -96,6 +102,8 @@ MyLogger:DEBUG("Message from MyLogger that won't be logged").
 When deploying an application that uses log4oe, you will need to include the library's root directory in the PROPATH.
 
 This could be achieved by downloading the repository into a separate directory and including that in the PROPATH. Alternatively, the directory "log4oe" in the library's root directory (including all of it's content and sub-directory) could be added into the source directories for your application.
+
+Note that the "Tests" directory can be excluded.
 
 ## Contributing
 
