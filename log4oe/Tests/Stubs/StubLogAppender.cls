@@ -23,6 +23,10 @@ CLASS log4oe.Tests.Stubs.StubLogAppender IMPLEMENTS ILogAppender:
     DEFINE PUBLIC PROPERTY Initialised AS LOGICAL NO-UNDO INITIAL FALSE
     PUBLIC GET.
     PRIVATE SET.
+    
+    DEFINE PUBLIC PROPERTY LoggedLevel AS INTEGER NO-UNDO
+    PUBLIC GET.
+    PRIVATE SET.
 
     DEFINE PUBLIC PROPERTY LoggedError AS Progress.Lang.Error NO-UNDO
     PUBLIC GET.
@@ -36,12 +40,14 @@ CLASS log4oe.Tests.Stubs.StubLogAppender IMPLEMENTS ILogAppender:
         ASSIGN Initialised = TRUE.
     END METHOD.
 
-    METHOD PUBLIC VOID Log(INPUT pcMessage AS CHARACTER):
-        ASSIGN LoggedMessage = pcMessage.
+    METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER):
+        ASSIGN LoggedMessage = pcMessage
+               LoggedLevel   = piLogLevel.
     END METHOD.
 
-    METHOD PUBLIC VOID Log(INPUT peError AS Progress.Lang.Error):
-        ASSIGN LoggedError = peError.
+    METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT peError AS Progress.Lang.Error):
+        ASSIGN LoggedError = peError
+               LoggedLevel = piLogLevel.
     END METHOD.
 
     METHOD PUBLIC ILoggerConfig getLoggerConfig():

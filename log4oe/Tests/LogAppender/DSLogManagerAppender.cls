@@ -12,6 +12,7 @@ USING Progress.Lang.*.
 USING OEUnit.Assertion.*.
 USING log4oe.LogAppender.DSLogManagerAppender.
 USING log4oe.LoggerConfig.DSLogManagerConfig.
+USING log4oe.LogLevel.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
@@ -79,7 +80,7 @@ CLASS log4oe.Tests.LogAppender.DSLogManagerAppender:
 
         voAppender:setLoggerConfig(INPUT voConfig).
 
-        voAppender:Log("Test Message").
+        voAppender:Log(LogLevel:INFO, "Test Message").
 
         FINALLY:
             DELETE OBJECT voConfig NO-ERROR.
@@ -101,7 +102,7 @@ CLASS log4oe.Tests.LogAppender.DSLogManagerAppender:
 
         voAppender:setLoggerConfig(INPUT voConfig).
 
-        voAppender:Log("Test Message").
+        voAppender:Log(LogLevel:INFO, "Test Message").
 
         FINALLY:
             DELETE OBJECT voConfig NO-ERROR.

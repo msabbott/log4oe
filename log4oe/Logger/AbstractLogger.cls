@@ -84,7 +84,7 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
 
                     IF VALID-OBJECT(voAppender) THEN
                     DO:
-                        voAppender:Log(pcMessage).
+                        voAppender:Log(piLogLevel, pcMessage).
                     END.
                 END.
                 ELSE
@@ -114,7 +114,7 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
 
                     IF VALID-OBJECT(voAppender) THEN
                     DO:
-                        voAppender:Log(peError).
+                        voAppender:Log(piLogLevel, peError).
                     END.
                 END.
                 ELSE

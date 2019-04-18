@@ -17,7 +17,7 @@ BLOCK-LEVEL ON ERROR UNDO, THROW.
 
 CLASS log4oe.LogAppender.LogManagerAppender INHERITS AbstractLogAppender IMPLEMENTS ILogAppender:
 
-    METHOD PUBLIC OVERRIDE VOID Log(INPUT pcMessage AS CHARACTER):
+    METHOD PUBLIC OVERRIDE VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER):
 
         IF Config:getSubsystemName() NE "" AND Config:getSubsystemName() NE ? THEN
         DO:
