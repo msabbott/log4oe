@@ -64,6 +64,14 @@ CLASS log4oe.tests.LoggerFactory:
     END METHOD.
 
     @Test.
+    METHOD PUBLIC VOID GetLogger_LoggerNameIsSet():
+        
+        Assert:IsNotNull(LoggerFactory:getLogger():getLoggerName(), "Logger name is null").
+        Assert:AreNotEqual(LoggerFactory:getLogger():getLoggerName(), "", "Logger name is blank").
+        
+    END METHOD.
+
+    @Test.
     METHOD PUBLIC VOID ResetFactory_ResetsConfig():
 
         DEFINE VARIABLE voConfig AS StubLoggerConfig NO-UNDO.
