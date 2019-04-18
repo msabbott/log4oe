@@ -105,7 +105,7 @@ CLASS log4oe.Tests.LoggerConfig.DSLogManagerConfig:
     END METHOD.
 
     @Test.
-    METHOD PUBLIC INTEGER SetGetLogLevel():
+    METHOD PUBLIC VOID SetGetLogLevel():
 
         voConfig:setLogLevel(INPUT 1).
 
