@@ -12,12 +12,15 @@
 USING Progress.Lang.*.
 USING log4oe.LogAppender.AbstractLogAppender.
 USING log4oe.LogAppender.ILogAppender.
+USING log4oe.LogLevel.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
 CLASS log4oe.LogAppender.LogManagerAppender INHERITS AbstractLogAppender IMPLEMENTS ILogAppender:
 
     METHOD PUBLIC OVERRIDE VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER):
+        
+        ASSIGN pcMessage = "[" + LogLevel:getLogLevelFixedWidthDesc(piLogLevel) + "] " + pcMessage.
 
         IF Config:getSubsystemName() NE "" AND Config:getSubsystemName() NE ? THEN
         DO:
