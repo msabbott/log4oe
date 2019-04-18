@@ -43,6 +43,45 @@ CLASS log4oe.Tests.Logger.BasicLogger:
         Assert:AreEqual(voLogger:getLoggerConfig(), voConfig).
 
     END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID GetSetLoggerName():
+        
+        DEFINE VARIABLE vcName AS CHARACTER NO-UNDO INITIAL "TestLoggerName".
+        
+        voLogger:setLoggerName(vcName).
+        
+        Assert:AreEqual(voLogger:getLoggerName(), vcName).
+        
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID SetLoggerName_NoOverwriteWhenBlankName():
+        
+        DEFINE VARIABLE vcName AS CHARACTER NO-UNDO INITIAL "TestLoggerName".
+        
+        // Set Initial value
+        voLogger:setLoggerName(vcName).
+        
+        // Should not overwrite if blank
+        voLogger:setLoggerName("").
+        Assert:AreEqual(voLogger:getLoggerName(), vcName).
+        
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID SetLoggerName_NoOverwriteWhenNullName():
+        
+        DEFINE VARIABLE vcName AS CHARACTER NO-UNDO INITIAL "TestLoggerName".
+        
+        // Set Initial value
+        voLogger:setLoggerName(vcName).
+        
+        // Should not overwrite if null
+        voLogger:setLoggerName(?).
+        Assert:AreEqual(voLogger:getLoggerName(), vcName).
+        
+    END METHOD.
 
     @Test.
     METHOD PUBLIC VOID Log_ShouldLog():

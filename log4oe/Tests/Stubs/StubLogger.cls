@@ -24,6 +24,10 @@ CLASS log4oe.Tests.Stubs.StubLogger IMPLEMENTS ILogger:
     DEFINE PUBLIC PROPERTY AppenderObject AS ILogAppender NO-UNDO
     PUBLIC GET.
     PUBLIC SET.
+    
+    DEFINE PUBLIC PROPERTY LoggerName AS CHARACTER NO-UNDO
+    PUBLIC GET.
+    PUBLIC SET.
 
     METHOD PUBLIC VOID DEBUG( INPUT pcMessage AS CHARACTER ):
 
@@ -119,6 +123,14 @@ CLASS log4oe.Tests.Stubs.StubLogger IMPLEMENTS ILogger:
 
     METHOD PUBLIC VOID setLoggerConfig( INPUT poLoggerConfig AS ILoggerConfig ):
         ConfigObject = poLoggerConfig.
+    END METHOD.
+    
+    METHOD PUBLIC VOID setLoggerName(INPUT pcLoggerName AS CHARACTER):
+        LoggerName = pcLoggerName.
+    END METHOD.
+    
+    METHOD PUBLIC CHARACTER getLoggerName():
+        RETURN LoggerName.
     END METHOD.
 
 END CLASS.
