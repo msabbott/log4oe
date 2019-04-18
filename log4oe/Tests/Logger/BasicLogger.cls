@@ -100,6 +100,7 @@ CLASS log4oe.Tests.Logger.BasicLogger:
         voLogger:Log(INPUT LogLevel:INFO, "Message").
 
         Assert:AreEqual(voAppender:LoggedMessage, "Message").
+        Assert:AreEqual(voAppender:LoggedLevel, LogLevel:INFO).
 
         FINALLY:
             DELETE OBJECT voConfig NO-ERROR.
@@ -152,6 +153,7 @@ CLASS log4oe.Tests.Logger.BasicLogger:
         voLogger:Log(INPUT LogLevel:INFO, INPUT voError).
 
         Assert:AreEqual(voAppender:LoggedError, voError).
+        Assert:AreEqual(voAppender:LoggedLevel, LogLevel:INFO).
 
         FINALLY:
             DELETE OBJECT voConfig   NO-ERROR.

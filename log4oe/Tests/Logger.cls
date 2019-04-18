@@ -52,6 +52,7 @@ CLASS log4oe.tests.Logger:
 
         Logger:Log(LogLevel:WARN, "Message").
         Assert:AreEqual(voConfig:LogAppender:LoggedMessage, "Message").
+        Assert:AreEqual(voConfig:LogAppender:LoggedLevel, LogLevel:WARN).
 
     END METHOD.
 
@@ -72,6 +73,7 @@ CLASS log4oe.tests.Logger:
 
         Logger:Log(LogLevel:WARN, voError).
         Assert:AreEqual(voConfig:LogAppender:LoggedError, voError).
+        Assert:AreEqual(voConfig:LogAppender:LoggedLevel, LogLevel:WARN).
 
     END METHOD.
 
