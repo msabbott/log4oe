@@ -26,6 +26,10 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
     DEFINE PROTECTED PROPERTY Config AS ILoggerConfig NO-UNDO
     PROTECTED GET.
     PROTECTED SET.
+    
+    DEFINE PRIVATE PROPERTY LoggerName AS CHARACTER NO-UNDO
+    PRIVATE GET.
+    PRIVATE SET.
 
     METHOD PUBLIC VOID addLogAppender(INPUT poAppender AS ILogAppender):
 
@@ -50,6 +54,19 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
 
     METHOD PUBLIC ILoggerConfig getLoggerConfig():
         RETURN Config.
+    END METHOD.
+    
+    METHOD PUBLIC VOID setLoggerName(INPUT pcLoggerName AS CHARACTER):
+        
+        IF pcLoggerName NE "" AND pcLoggerName NE ? THEN
+        DO:
+            ASSIGN LoggerName = TRIM(pcLoggerName).
+        END.
+        
+    END METHOD.
+    
+    METHOD PUBLIC CHARACTER getLoggerName():
+        RETURN LoggerName.
     END METHOD.
 
     METHOD PUBLIC VOID Log( INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER ):

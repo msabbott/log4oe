@@ -78,7 +78,10 @@ CLASS log4oe.LoggerFactory:
         /* Check that the logger object is a valid-object */
         IF NOT VALID-OBJECT(ttLogger.Logger) OR NOT ttLogger.Logger:GetClass():IsA("log4oe.Logger.ILogger") THEN
         DO:
+            /* Create and initialise logger */
             voLogger = DYNAMIC-NEW pcLoggerClass ().
+            voLogger:setLoggerName(pcLoggerName).
+            
             ASSIGN ttLogger.Logger = voLogger.
 
             /* Configure the logger */
