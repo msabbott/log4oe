@@ -97,6 +97,40 @@ MyLogger:INFO("Message from MyLogger").
 MyLogger:DEBUG("Message from MyLogger that won't be logged").
 ```
 
+### Logging to files
+
+By using the LogFileConfiguration, and specifying an output directory, log data can be written to a file. Data is written to a file matching the logger name with ".log" appended to the end.
+
+```
+USING log4oe.Logger.
+USING log4oe.Logger.ILogger.
+USING log4oe.LoggerFactory.
+USING log4oe.LogLevel.
+USING log4oe.LoggerConfig.LogFileConfig.
+
+DEFINE VARIABLE FileConfig AS LogFileConfig NO-UNDO.
+DEFINE VARIABLE MyLogger   AS ILogger       NO-UNDO.
+
+ASSIGN FileConfig = NEW LogFileConfig().
+
+FileConfig:setOutputDirectory("./logs").
+FileConfig:setLogLevel(LogLevel:INFO).
+FileConfig:setSubsystemName("My Test Application").
+
+/* FileConfig is now used for all loggers created through the LoggerFactory */
+LoggerFactory:setConfig(FileConfig).
+
+/* Log messages issued through MyLogger will be written to "./logs/MyLogger.log" */
+ASSIGN MyLogger = LoggerFactory:getLogger("MyLogger").
+
+/* Log messages issued by default logger will be written to "./logs/log4oeDefaultLogger.log" */
+Logger:INFO("This message should be logged").
+Logger:DEBUG("This message should not be logged").
+
+MyLogger:INFO("Message from MyLogger").
+MyLogger:DEBUG("Message from MyLogger that won't be logged").
+```
+
 ## Deployment
 
 When deploying an application that uses log4oe, you will need to include the library's root directory in the PROPATH.
