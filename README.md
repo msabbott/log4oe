@@ -151,6 +151,11 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 * **Mark Abbott** - *Initial work* - [msabbott](https://github.com/msabbott)
 
+### Other Contributors
+
+Thanks go to others who have contributed to this project.
+* **Lieven De Foor** - *Bug Fixes* - [LievenDeFoor](https://github.com/LievenDeFoor)
+
 See also the list of [contributors](https://github.com/msabbott/log4oe/contributors) who participated in this project.
 
 ## License
