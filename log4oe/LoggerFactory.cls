@@ -56,7 +56,7 @@ CLASS log4oe.LoggerFactory:
 
     END METHOD.
 
-    METHOD PROTECTED STATIC ILogger getLogger(INPUT pcLoggerName AS CHARACTER, INPUT pcLoggerClass AS CHARACTER):
+    METHOD PUBLIC STATIC ILogger getLogger(INPUT pcLoggerName AS CHARACTER, INPUT pcLoggerClass AS CHARACTER):
 
         DEFINE VARIABLE voLogger AS ILogger NO-UNDO.
 
