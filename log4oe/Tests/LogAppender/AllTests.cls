@@ -20,6 +20,7 @@ CLASS log4oe.tests.LogAppender.AllTests INHERITS TestSuite:
 
     /* Tests for this package objects */
     AddTest(NEW log4oe.Tests.LogAppender.DSLogManagerAppender()).
+    AddTest(NEW log4oe.Tests.LogAppender.LogAppenderFactory()).
     AddTest(NEW log4oe.Tests.LogAppender.LogFileAppender()).
     AddTest(NEW log4oe.Tests.LogAppender.LogManagerAppender()).
 
