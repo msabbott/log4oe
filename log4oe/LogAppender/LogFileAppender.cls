@@ -19,7 +19,7 @@ BLOCK-LEVEL ON ERROR UNDO, THROW.
 
 CLASS log4oe.LogAppender.LogFileAppender INHERITS AbstractLogAppender IMPLEMENTS ILogAppender, ILogFileAppender: 
     
-    DEFINE PRIVATE PROPERTY OutputFileName AS CHARACTER NO-UNDO
+    DEFINE PRIVATE PROPERTY OutputFileName AS CHARACTER NO-UNDO INITIAL ?
     PRIVATE GET.
     PRIVATE SET.
     
@@ -42,6 +42,10 @@ CLASS log4oe.LogAppender.LogFileAppender INHERITS AbstractLogAppender IMPLEMENTS
         OutputFileName = pcOutputFileName.      
     END CONSTRUCTOR.
     
+    CONSTRUCTOR LogFileAppender():
+        SUPER().
+    END CONSTRUCTOR.
+    
     DESTRUCTOR LogFileAppender():
         
         CloseStream().
@@ -55,6 +59,11 @@ CLASS log4oe.LogAppender.LogFileAppender INHERITS AbstractLogAppender IMPLEMENTS
     END METHOD.
     
     METHOD PRIVATE VOID OpenStream():
+        
+        IF TRIM(OutputFileName) = "" OR OutputFileName = ? THEN
+        DO:
+            UNDO, THROW NEW Progress.Lang.AppError("Output file name is not set of LogFileAppender").
+        END.
         
         IF NOT Buffered AND Append THEN
         DO:

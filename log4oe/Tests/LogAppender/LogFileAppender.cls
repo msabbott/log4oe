@@ -39,6 +39,23 @@ CLASS log4oe.Tests.LogAppender.LogFileAppender:
     METHOD PUBLIC VOID RemoveTestLogFile():
         OS-DELETE VALUE(vcFileName).
     END METHOD.
+    
+    METHOD PRIVATE VOID CreateAppenderWithNoFilename():
+        
+        DELETE OBJECT voAppender NO-ERROR.
+        
+        ASSIGN voAppender = NEW LogFileAppender().
+        
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID Constructor_InitialisesFileNameToNull():
+        
+        CreateAppenderWithNoFilename().
+        
+        Assert:IsNull(voAppender:getOutputFileName()).
+        
+    END METHOD.
 
     @Test.
     METHOD PUBLIC VOID setLoggerConfig():
@@ -115,6 +132,15 @@ CLASS log4oe.Tests.LogAppender.LogFileAppender:
             DELETE OBJECT voConfig NO-ERROR.
         END FINALLY.
 
+    END METHOD.
+    
+    @Test(expected='Progress.Lang.AppError').
+    METHOD PUBLIC VOID Initialise_WithNoFilename():
+        
+        CreateAppenderWithNoFilename().
+        
+        voAppender:Initialise().
+        
     END METHOD.
     
     @Test.
