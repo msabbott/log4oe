@@ -30,6 +30,15 @@ CLASS log4oe.Tests.Logger.BasicLogger:
     METHOD PUBLIC VOID DeleteLogger():
         DELETE OBJECT voLogger NO-ERROR.
     END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID Constructor_SetsLogLevel():
+        
+        Assert:IsNotNull(voLogger:getLogLevel()).
+        Assert:IsTrue(voLogger:getLogLevel() >= LogLevel:OFF).
+        Assert:IsTrue(voLogger:getLogLevel() <= LogLevel:ALL).
+        
+    END METHOD.
 
     @Test.
     METHOD PUBLIC VOID GetSetConfig():
@@ -190,5 +199,30 @@ CLASS log4oe.Tests.Logger.BasicLogger:
         END FINALLY.
 
     END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID SetLogLevel_SetsCurrentLogLevel():
+        voLogger:setLogLevel(LogLevel:INFO).
+        Assert:AreEqual(voLogger:getLogLevel(), LogLevel:INFO).
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID SetLogLevel_Invalid():
+        voLogger:setLogLevel(-1).
+        Assert:AreNotEqual(voLogger:getLogLevel(), -1).
+        
+        voLogger:setLogLevel(100).
+        Assert:AreNotEqual(voLogger:getLogLevel(), 100).
+        
+        voLogger:setLogLevel(?).
+        Assert:IsNotNull(voLogger:getLogLevel()).
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID GetLogLevel_GetsCurrentLogLevel():
+        voLogger:setLogLevel(LogLevel:INFO).
+        Assert:AreEqual(voLogger:getLogLevel(), LogLevel:INFO).
+    END METHOD.
+    
 
 END CLASS.

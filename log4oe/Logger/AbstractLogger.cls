@@ -30,6 +30,16 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
     DEFINE PRIVATE PROPERTY LoggerName AS CHARACTER NO-UNDO
     PRIVATE GET.
     PRIVATE SET.
+    
+    DEFINE PRIVATE PROPERTY CurrentLogLevel AS INTEGER NO-UNDO
+    PRIVATE GET.
+    PRIVATE SET.
+
+	CONSTRUCTOR PUBLIC AbstractLogger():
+		SUPER ().
+		CurrentLogLevel = LogLevel:WARN.
+	END CONSTRUCTOR.
+
 
     METHOD PUBLIC VOID addLogAppender(INPUT poAppender AS ILogAppender):
 
@@ -67,6 +77,17 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
     
     METHOD PUBLIC CHARACTER getLoggerName():
         RETURN LoggerName.
+    END METHOD.
+    
+    METHOD PUBLIC VOID setLogLevel(INPUT piLogLevel AS INTEGER):
+        IF piLogLevel NE ? AND piLogLevel >= LogLevel:OFF AND piLogLevel <= LogLevel:ALL THEN
+        DO:
+            CurrentLogLevel = piLogLevel.
+        END.
+    END METHOD.
+    
+    METHOD PUBLIC INTEGER getLogLevel():
+        RETURN CurrentLogLevel.
     END METHOD.
 
     METHOD PUBLIC VOID Log( INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER ):
@@ -178,7 +199,7 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
     END METHOD.
 
     METHOD PROTECTED LOGICAL ShouldLog (INPUT piLogLevel AS INTEGER):
-        RETURN piLogLevel <= Config:getLogLevel().
+        RETURN piLogLevel <= CurrentLogLevel OR (VALID-OBJECT(Config) AND piLogLevel <= Config:getLogLevel()).
     END METHOD.
 
 END CLASS.

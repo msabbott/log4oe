@@ -22,6 +22,10 @@ INTERFACE log4oe.Logger.ILogger:
     METHOD PUBLIC VOID setLoggerName(INPUT pcLoggerName AS CHARACTER).
     
     METHOD PUBLIC CHARACTER getLoggerName().
+    
+    METHOD PUBLIC VOID setLogLevel(INPUT piLogLevel AS INTEGER).
+    
+    METHOD PUBLIC INTEGER getLogLevel().
 
     METHOD PUBLIC VOID addLogAppender(INPUT poAppender AS ILogAppender).
 
