@@ -27,6 +27,14 @@ CLASS log4oe.LogAppender.LogFileAppender INHERITS AbstractLogAppender IMPLEMENTS
     PRIVATE GET.
     PRIVATE SET.
     
+    DEFINE PRIVATE PROPERTY Buffered AS LOGICAL NO-UNDO INITIAL FALSE
+    PRIVATE GET.
+    PRIVATE SET.
+    
+    DEFINE PRIVATE PROPERTY Append AS LOGICAL NO-UNDO INITIAL TRUE
+    PRIVATE GET.
+    PRIVATE SET.
+    
     DEFINE PRIVATE STREAM OutputFile.
     
     CONSTRUCTOR LogFileAppender(INPUT pcOutputFileName AS CHARACTER):
@@ -47,8 +55,26 @@ CLASS log4oe.LogAppender.LogFileAppender INHERITS AbstractLogAppender IMPLEMENTS
     END METHOD.
     
     METHOD PRIVATE VOID OpenStream():
-        OUTPUT STREAM OutputFile TO VALUE(OutputFileName) UNBUFFERED.
+        
+        IF NOT Buffered AND Append THEN
+        DO:
+            OUTPUT STREAM OutputFile TO VALUE(OutputFileName) UNBUFFERED APPEND.
+        END.
+        ELSE IF NOT Buffered AND NOT Append THEN
+        DO:
+            OUTPUT STREAM OutputFile TO VALUE(OutputFileName) UNBUFFERED.
+        END.
+        ELSE IF Buffered AND Append THEN
+        DO:
+            OUTPUT STREAM OutputFile TO VALUE(OutputFileName) APPEND.
+        END.
+        ELSE
+        DO:
+            OUTPUT STREAM OutputFile TO VALUE(OutputFileName).
+        END.
+        
         LogFileOpen = TRUE.
+        
     END METHOD.
     
     METHOD PRIVATE VOID CloseStream():
@@ -61,6 +87,22 @@ CLASS log4oe.LogAppender.LogFileAppender INHERITS AbstractLogAppender IMPLEMENTS
     
     METHOD PUBLIC CHARACTER getOutputFileName():
         RETURN OutputFileName.
+    END METHOD.
+    
+    METHOD PRIVATE VOID setBuffered(INPUT plBuffered AS LOGICAL):
+        ASSIGN Buffered = plBuffered.
+    END METHOD.
+    
+    METHOD PUBLIC LOGICAL getBuffered():
+        RETURN Buffered.
+    END METHOD.
+    
+    METHOD PRIVATE VOID setAppend(INPUT plAppend AS LOGICAL):
+        ASSIGN Append = plAppend.
+    END METHOD.
+    
+    METHOD PUBLIC LOGICAL getAppend():
+        RETURN Append.
     END METHOD.
     
     METHOD PUBLIC OVERRIDE VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER):

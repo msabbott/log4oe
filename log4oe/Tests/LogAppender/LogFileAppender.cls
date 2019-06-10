@@ -116,5 +116,15 @@ CLASS log4oe.Tests.LogAppender.LogFileAppender:
         END FINALLY.
 
     END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID Buffered_DefaultsToFalse():
+        Assert:IsFalse(voAppender:getBuffered()).
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID Append_DefaultsToTrue():
+        Assert:IsTrue(voAppender:getAppend()).
+    END METHOD.
 
 END CLASS.
