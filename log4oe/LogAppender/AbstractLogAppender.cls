@@ -33,6 +33,10 @@ CLASS log4oe.LogAppender.AbstractLogAppender IMPLEMENTS ILogAppender ABSTRACT:
     METHOD PUBLIC ILoggerConfig getLoggerConfig():
         RETURN Config.
     END METHOD.
+    
+    METHOD PUBLIC VOID setProperty(INPUT pcPropertyName AS CHARACTER, INPUT pcPropertyValue AS CHARACTER):
+        // Do nothing
+    END METHOD.
 
     METHOD PUBLIC VOID Initialise():
         // Do nothing

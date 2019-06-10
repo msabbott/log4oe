@@ -17,6 +17,8 @@ INTERFACE log4oe.LogAppender.ILogAppender:
     METHOD PUBLIC VOID setLoggerConfig(INPUT poLoggerConfig AS ILoggerConfig).
 
     METHOD PUBLIC ILoggerConfig getLoggerConfig().
+    
+    METHOD PUBLIC VOID setProperty(INPUT pcPropertyName AS CHARACTER, INPUT pcPropertyValue AS CHARACTER).
 
     METHOD PUBLIC VOID Initialise().
 
