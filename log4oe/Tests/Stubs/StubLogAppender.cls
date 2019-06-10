@@ -57,5 +57,8 @@ CLASS log4oe.Tests.Stubs.StubLogAppender IMPLEMENTS ILogAppender:
     METHOD PUBLIC VOID setLoggerConfig(INPUT poLoggerConfig AS ILoggerConfig):
         ConfigObject = poLoggerConfig.
     END METHOD.
+    
+    METHOD PUBLIC VOID setProperty(INPUT pcPropertyName AS CHARACTER, INPUT pcPropertyValue AS CHARACTER):
+    END METHOD.
 
 END CLASS.

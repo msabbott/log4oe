@@ -28,6 +28,10 @@ CLASS log4oe.Tests.Stubs.StubLogger IMPLEMENTS ILogger:
     DEFINE PUBLIC PROPERTY LoggerName AS CHARACTER NO-UNDO
     PUBLIC GET.
     PUBLIC SET.
+    
+    DEFINE PUBLIC PROPERTY CurrentLogLevel AS INTEGER NO-UNDO
+    PUBLIC GET.
+    PUBLIC SET.
 
     METHOD PUBLIC VOID DEBUG( INPUT pcMessage AS CHARACTER ):
 
@@ -131,6 +135,14 @@ CLASS log4oe.Tests.Stubs.StubLogger IMPLEMENTS ILogger:
     
     METHOD PUBLIC CHARACTER getLoggerName():
         RETURN LoggerName.
+    END METHOD.
+    
+    METHOD PUBLIC VOID setLogLevel(INPUT piLogLevel AS INTEGER):
+        CurrentLogLevel = piLogLevel.
+    END METHOD.
+    
+    METHOD PUBLIC INTEGER getLogLevel():
+        RETURN CurrentLogLevel.
     END METHOD.
 
 END CLASS.
