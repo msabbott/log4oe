@@ -94,6 +94,34 @@ CLASS log4oe.LogAppender.LogFileAppender INHERITS AbstractLogAppender IMPLEMENTS
         END.
     END METHOD.
     
+    METHOD PUBLIC OVERRIDE VOID setProperty(INPUT pcPropertyName AS CHARACTER, INPUT pcPropertyValue AS CHARACTER):
+        SUPER:setProperty(INPUT pcPropertyName, INPUT pcPropertyValue).
+        
+        CASE TRIM(pcPropertyName):
+            
+            WHEN "filename" THEN
+            DO:
+                setOutputFileName(pcPropertyValue).
+            END.
+            
+            WHEN "buffered" THEN
+            DO:
+                setBuffered(pcPropertyValue = "y" OR pcPropertyValue = "yes" OR pcPropertyValue = "true" OR pcPropertyValue = "t" OR pcPropertyValue = "1").
+            END.
+            
+            WHEN "append" THEN
+            DO:
+                setAppend(NOT(pcPropertyValue = "n" OR pcPropertyValue = "no" OR pcPropertyValue = "false" OR pcPropertyValue = "f" OR pcPropertyValue = "0")).
+            END.
+            
+        END.
+        
+    END METHOD.
+    
+    METHOD PRIVATE VOID setOutputFileName(INPUT pcOutputFileName AS CHARACTER):
+        ASSIGN OutputFileName = pcOutputFileName.
+    END METHOD.
+    
     METHOD PUBLIC CHARACTER getOutputFileName():
         RETURN OutputFileName.
     END METHOD.

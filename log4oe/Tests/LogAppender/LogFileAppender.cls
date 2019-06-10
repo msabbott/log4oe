@@ -144,6 +144,84 @@ CLASS log4oe.Tests.LogAppender.LogFileAppender:
     END METHOD.
     
     @Test.
+    METHOD PUBLIC VOID SetProperty_SetsFileName():
+        voAppender:setProperty("filename", "test.log").
+        Assert:AreEqual(voAppender:getOutputFileName(), "test.log").
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID SetProperty_SetsBufferedTrue():
+        voAppender:setProperty("buffered", "true").
+        Assert:IsTrue(voAppender:getBuffered()).
+        voAppender:setProperty("buffered", "t").
+        Assert:IsTrue(voAppender:getBuffered()).
+        voAppender:setProperty("buffered", "yes").
+        Assert:IsTrue(voAppender:getBuffered()).
+        voAppender:setProperty("buffered", "y").
+        Assert:IsTrue(voAppender:getBuffered()).
+        voAppender:setProperty("buffered", "1").
+        Assert:IsTrue(voAppender:getBuffered()).
+    END METHOD.
+
+    @Test.    
+    METHOD PUBLIC VOID SetProperty_SetsBufferedFalse():
+        voAppender:setProperty("buffered", "false").
+        Assert:IsFalse(voAppender:getBuffered()).
+        voAppender:setProperty("buffered", "f").
+        Assert:IsFalse(voAppender:getBuffered()).
+        voAppender:setProperty("buffered", "no").
+        Assert:IsFalse(voAppender:getBuffered()).
+        voAppender:setProperty("buffered", "n").
+        Assert:IsFalse(voAppender:getBuffered()).
+        voAppender:setProperty("buffered", "0").
+        Assert:IsFalse(voAppender:getBuffered()).
+        voAppender:setProperty("buffered", "not a boolean").
+        Assert:IsFalse(voAppender:getBuffered()).
+        voAppender:setProperty("buffered", "").
+        Assert:IsFalse(voAppender:getBuffered()).
+        voAppender:setProperty("buffered", " ").
+        Assert:IsFalse(voAppender:getBuffered()).
+        voAppender:setProperty("buffered", ?).
+        Assert:IsFalse(voAppender:getBuffered()).
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID SetProperty_SetsAppendTrue():
+        voAppender:setProperty("append", "true").
+        Assert:IsTrue(voAppender:getAppend()).
+        voAppender:setProperty("append", "t").
+        Assert:IsTrue(voAppender:getAppend()).
+        voAppender:setProperty("append", "yes").
+        Assert:IsTrue(voAppender:getAppend()).
+        voAppender:setProperty("append", "y").
+        Assert:IsTrue(voAppender:getAppend()).
+        voAppender:setProperty("append", "1").
+        Assert:IsTrue(voAppender:getAppend()).
+        voAppender:setProperty("append", "not a boolean").
+        Assert:IsTrue(voAppender:getAppend()).
+        voAppender:setProperty("append", "").
+        Assert:IsTrue(voAppender:getAppend()).
+        voAppender:setProperty("append", " ").
+        Assert:IsTrue(voAppender:getAppend()).
+        voAppender:setProperty("append", ?).
+        Assert:IsTrue(voAppender:getAppend()).
+    END METHOD.
+
+    @Test.    
+    METHOD PUBLIC VOID SetProperty_SetsAppendFalse():
+        voAppender:setProperty("append", "false").
+        Assert:IsFalse(voAppender:getAppend()).
+        voAppender:setProperty("append", "f").
+        Assert:IsFalse(voAppender:getAppend()).
+        voAppender:setProperty("append", "no").
+        Assert:IsFalse(voAppender:getAppend()).
+        voAppender:setProperty("append", "n").
+        Assert:IsFalse(voAppender:getAppend()).
+        voAppender:setProperty("append", "0").
+        Assert:IsFalse(voAppender:getAppend()).
+    END METHOD.
+    
+    @Test.
     METHOD PUBLIC VOID Buffered_DefaultsToFalse():
         Assert:IsFalse(voAppender:getBuffered()).
     END METHOD.
