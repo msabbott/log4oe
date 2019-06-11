@@ -224,5 +224,26 @@ CLASS log4oe.Tests.Logger.BasicLogger:
         Assert:AreEqual(voLogger:getLogLevel(), LogLevel:INFO).
     END METHOD.
     
+    @Test.
+    METHOD PUBLIC VOID SubsystemName():
+        voLogger:setSubsystemName("Test Subsystem").
+        Assert:AreEqual(voLogger:getSubsystemName(), "Test Subsystem").
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID setSubsystemName_Invalid():
+        voLogger:setSubsystemName("Test Subsystem").
+        voLogger:setSubsystemName("").
+        Assert:IsNull(voLogger:getSubsystemName()).
+        
+        voLogger:setSubsystemName("Test Subsystem").
+        voLogger:setSubsystemName(" ").
+        Assert:IsNull(voLogger:getSubsystemName()).
+        
+        voLogger:setSubsystemName("Test Subsystem").
+        voLogger:setSubsystemName(?).
+        Assert:IsNull(voLogger:getSubsystemName()).
+    END METHOD.
+    
 
 END CLASS.

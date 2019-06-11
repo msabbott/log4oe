@@ -32,6 +32,10 @@ CLASS log4oe.Tests.Stubs.StubLogger IMPLEMENTS ILogger:
     DEFINE PUBLIC PROPERTY CurrentLogLevel AS INTEGER NO-UNDO
     PUBLIC GET.
     PUBLIC SET.
+    
+    DEFINE PUBLIC PROPERTY SubsystemName AS CHARACTER NO-UNDO
+    PUBLIC GET.
+    PUBLIC SET.
 
     METHOD PUBLIC VOID DEBUG( INPUT pcMessage AS CHARACTER ):
 
@@ -143,6 +147,14 @@ CLASS log4oe.Tests.Stubs.StubLogger IMPLEMENTS ILogger:
     
     METHOD PUBLIC INTEGER getLogLevel():
         RETURN CurrentLogLevel.
+    END METHOD.
+    
+    METHOD PUBLIC VOID setSubsystemName(INPUT pcSubsystemName AS CHARACTER):
+        SubsystemName = pcSubsystemName.
+    END METHOD.
+    
+    METHOD PUBLIC CHARACTER getSubsystemName():
+        RETURN SubsystemName.
     END METHOD.
 
 END CLASS.

@@ -34,6 +34,10 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
     DEFINE PRIVATE PROPERTY CurrentLogLevel AS INTEGER NO-UNDO
     PRIVATE GET.
     PRIVATE SET.
+    
+    DEFINE PRIVATE PROPERTY SubsystemName AS CHARACTER NO-UNDO
+    PRIVATE GET.
+    PRIVATE SET.
 
 	CONSTRUCTOR PUBLIC AbstractLogger():
 		SUPER ().
@@ -88,6 +92,21 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
     
     METHOD PUBLIC INTEGER getLogLevel():
         RETURN CurrentLogLevel.
+    END METHOD.
+    
+    METHOD PUBLIC VOID setSubsystemName(INPUT pcSubsystemName AS CHARACTER):
+        IF pcSubsystemName NE ? AND TRIM(pcSubsystemName) NE "" THEN
+        DO:
+            ASSIGN SubsystemName = pcSubsystemName.
+        END.
+        ELSE
+        DO:
+            ASSIGN SubsystemName = ?.
+        END.
+    END METHOD.
+    
+    METHOD PUBLIC CHARACTER getSubsystemName():
+        RETURN SubsystemName.
     END METHOD.
 
     METHOD PUBLIC VOID Log( INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER ):
