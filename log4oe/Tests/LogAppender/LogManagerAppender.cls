@@ -112,19 +112,7 @@ CLASS log4oe.Tests.LogAppender.LogManagerAppender:
         // Difficult to confirm what is logged with this. Test only confirms that
         // no error was raised by logging.
 
-        DEFINE VARIABLE voConfig AS LogManagerConfig NO-UNDO.
-
-        ASSIGN voConfig = NEW LogManagerConfig().
-
-        voConfig:setSubsystemName("TestSubsys").
-
-        voAppender:setLoggerConfig(INPUT voConfig).
-
-        voAppender:Log(LogLevel:WARN, "Test Message").
-
-        FINALLY:
-            DELETE OBJECT voConfig NO-ERROR.
-        END FINALLY.
+        voAppender:Log(LogLevel:WARN, "SubSystem", "Test Message").
 
     END METHOD.
 

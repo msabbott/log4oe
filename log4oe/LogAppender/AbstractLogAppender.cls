@@ -43,23 +43,31 @@ CLASS log4oe.LogAppender.AbstractLogAppender IMPLEMENTS ILogAppender ABSTRACT:
     END METHOD.
 
     METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER):
+        THIS-OBJECT:Log(piLogLevel, ?, pcMessage).
+    END METHOD.
+    
+    METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcSubsystemName AS CHARACTER, INPUT pcMessage AS CHARACTER):
         UNDO, THROW NEW Progress.Lang.AppError("Method not implemented in AbstractLogAppender").
     END METHOD.
 
     METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT peError AS Progress.Lang.Error):
+        THIS-OBJECT:Log(piLogLevel, ?, peError).
+    END METHOD.
+    
+    METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcSubsystemName AS CHARACTER, INPUT peError AS Progress.Lang.Error):
 
         DEFINE VARIABLE viMessage AS INTEGER NO-UNDO.
 
-        THIS-OBJECT:Log(piLogLevel, 'Error trapped with type ' + peError:GetClass():TypeName).
-        THIS-OBJECT:Log(piLogLevel, 'Severity: ' + STRING(peError:Severity)).
+        THIS-OBJECT:Log(piLogLevel, pcSubsystemName, 'Error trapped with type ' + peError:GetClass():TypeName).
+        THIS-OBJECT:Log(piLogLevel, pcSubsystemName, 'Severity: ' + STRING(peError:Severity)).
 
         DO viMessage = 1 TO peError:NumMessages:
-            THIS-OBJECT:Log(piLogLevel, peError:GetMessage(viMessage) + ' (' + STRING(peError:GetMessageNum(viMessage)) + ')').
+            THIS-OBJECT:Log(piLogLevel, pcSubsystemName, peError:GetMessage(viMessage) + ' (' + STRING(peError:GetMessageNum(viMessage)) + ')').
         END.
 
         IF peError:CallStack NE ? THEN
         DO:
-            THIS-OBJECT:Log(piLogLevel, 'Call Stack: ' + peError:CallStack).
+            THIS-OBJECT:Log(piLogLevel, pcSubsystemName, 'Call Stack: ' + peError:CallStack).
         END.
 
     END METHOD.

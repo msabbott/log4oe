@@ -18,11 +18,15 @@ BLOCK-LEVEL ON ERROR UNDO, THROW.
 
 CLASS log4oe.LogAppender.LogManagerAppender INHERITS AbstractLogAppender IMPLEMENTS ILogAppender:
 
-    METHOD PUBLIC OVERRIDE VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER):
+    METHOD PUBLIC OVERRIDE VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcSubsystemName AS CHARACTER, INPUT pcMessage AS CHARACTER):
         
         ASSIGN pcMessage = "[" + LogLevel:getLogLevelFixedWidthDesc(piLogLevel) + "] " + pcMessage.
 
-        IF Config:getSubsystemName() NE "" AND Config:getSubsystemName() NE ? THEN
+        IF pcSubsystemName NE "" AND pcSubsystemName NE ? THEN
+        DO:
+            LOG-MANAGER:WRITE-MESSAGE(pcMessage, pcSubsystemName).
+        END.
+        ELSE IF Config:getSubsystemName() NE "" AND Config:getSubsystemName() NE ? THEN
         DO:
             LOG-MANAGER:WRITE-MESSAGE(pcMessage, Config:getSubsystemName()).
         END.

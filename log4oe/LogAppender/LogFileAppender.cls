@@ -142,7 +142,7 @@ CLASS log4oe.LogAppender.LogFileAppender INHERITS AbstractLogAppender IMPLEMENTS
         RETURN Append.
     END METHOD.
     
-    METHOD PUBLIC OVERRIDE VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER):
+    METHOD PUBLIC OVERRIDE VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcSubsystemName AS CHARACTER, INPUT pcMessage AS CHARACTER):
         
         DEFINE VARIABLE vdtzNow AS DATETIME-TZ NO-UNDO.
         
@@ -154,10 +154,15 @@ CLASS log4oe.LogAppender.LogFileAppender INHERITS AbstractLogAppender IMPLEMENTS
             OpenStream().
         END.
         
+        IF pcSubsystemName EQ "" OR pcSubsystemName EQ ? AND VALID-OBJECT(Config) AND Config:getSubsystemName() NE "" AND Config:getSubsystemName() NE ? THEN
+        DO:
+            ASSIGN pcSubsystemName = Config:getSubsystemName().
+        END.
+        
         PUT STREAM OutputFile UNFORMATTED
             "[" ISO-DATE(vdtzNow) "] "
-            IF VALID-OBJECT(Config) AND Config:getSubsystemName() NE "" AND Config:getSubsystemName() NE ? THEN
-                "[" + Config:getSubsystemName() + "] "
+            IF pcSubsystemName NE "" AND pcSubsystemName NE ? THEN
+                "[" + pcSubsystemName + "] "
             ELSE
                 ""
             "[" + LogLevel:getLogLevelFixedWidthDesc(INPUT piLogLevel) + "] "

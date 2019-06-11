@@ -36,18 +36,32 @@ CLASS log4oe.Tests.Stubs.StubLogAppender IMPLEMENTS ILogAppender:
     PUBLIC GET.
     PRIVATE SET.
 
+    DEFINE PUBLIC PROPERTY LoggedSubsystemName AS CHARACTER NO-UNDO INITIAL ?
+    PUBLIC GET.
+    PRIVATE SET.
+
     METHOD PUBLIC VOID Initialise():
         ASSIGN Initialised = TRUE.
     END METHOD.
 
     METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER):
-        ASSIGN LoggedMessage = pcMessage
-               LoggedLevel   = piLogLevel.
+        THIS-OBJECT:Log(piLogLevel, ?, pcMessage).
+    END METHOD.
+    
+    METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcSubsystemName AS CHARACTER, INPUT pcMessage AS CHARACTER):
+        ASSIGN LoggedMessage       = pcMessage
+               LoggedSubsystemName = pcSubsystemName
+               LoggedLevel         = piLogLevel.
     END METHOD.
 
     METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT peError AS Progress.Lang.Error):
-        ASSIGN LoggedError = peError
-               LoggedLevel = piLogLevel.
+        THIS-OBJECT:Log(piLogLevel, ?, peError).
+    END METHOD.
+    
+    METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcSubsystemName AS CHARACTER, INPUT peError AS Progress.Lang.Error):
+        ASSIGN LoggedError         = peError
+               LoggedSubsystemName = pcSubsystemName
+               LoggedLevel         = piLogLevel.
     END METHOD.
 
     METHOD PUBLIC ILoggerConfig getLoggerConfig():

@@ -23,8 +23,11 @@ INTERFACE log4oe.LogAppender.ILogAppender:
     METHOD PUBLIC VOID Initialise().
 
     METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER).
+    
+    METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcSubsystemName AS CHARACTER, INPUT pcMessage AS CHARACTER).
 
     METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT peError AS Progress.Lang.Error).
-
+    
+    METHOD PUBLIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcSubsystemName AS CHARACTER, INPUT peError AS Progress.Lang.Error).
 
 END INTERFACE.

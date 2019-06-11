@@ -117,21 +117,9 @@ CLASS log4oe.Tests.LogAppender.LogFileAppender:
 
         // Difficult to confirm what is logged with this. Test only confirms that
         // no error was raised by logging.
-
-        DEFINE VARIABLE voConfig AS LogFileConfig NO-UNDO.
-
-        ASSIGN voConfig = NEW LogFileConfig().
-
-        voConfig:setSubsystemName("TestSubsys").
-
-        voAppender:setLoggerConfig(INPUT voConfig).
-
-        voAppender:Log(LogLevel:WARN, "Test Message").
-
-        FINALLY:
-            DELETE OBJECT voConfig NO-ERROR.
-        END FINALLY.
-
+        
+        voAppender:Log(LogLevel:WARN, "Subsystem Name", "Test Message").
+        
     END METHOD.
     
     @Test(expected='Progress.Lang.AppError').
