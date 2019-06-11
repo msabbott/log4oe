@@ -156,7 +156,7 @@ CLASS log4oe.LogAppender.LogFileAppender INHERITS AbstractLogAppender IMPLEMENTS
         
         PUT STREAM OutputFile UNFORMATTED
             "[" ISO-DATE(vdtzNow) "] "
-            IF Config:getSubsystemName() NE "" AND Config:getSubsystemName() NE ? THEN
+            IF VALID-OBJECT(Config) AND Config:getSubsystemName() NE "" AND Config:getSubsystemName() NE ? THEN
                 "[" + Config:getSubsystemName() + "] "
             ELSE
                 ""
