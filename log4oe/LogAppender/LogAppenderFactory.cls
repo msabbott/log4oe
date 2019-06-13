@@ -46,7 +46,7 @@ CLASS log4oe.LogAppender.LogAppenderFactory:
             ASSIGN ttAppender.AppenderName = pcAppenderName.
         END.
         
-        IF NOT VALID-OBJECT(ttAppender.Appender) OR NOT ttAppender.Appender:GetClass():IsA("log4oe.LogAppender.LogManagerAppender") THEN
+        IF NOT VALID-OBJECT(ttAppender.Appender) OR NOT ttAppender.Appender:GetClass():IsA("log4oe.LogAppender.ILogAppender") THEN
         DO:
 
             DELETE OBJECT ttAppender.Appender NO-ERROR.

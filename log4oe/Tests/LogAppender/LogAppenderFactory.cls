@@ -34,6 +34,19 @@ CLASS log4oe.Tests.LogAppender.LogAppenderFactory:
     END METHOD.
 
     @Test.
+    METHOD PUBLIC VOID GetAppender_ReturnsSameObject_NotDefaultType():
+        
+        DEFINE VARIABLE voAppender1 AS ILogAppender NO-UNDO.
+        DEFINE VARIABLE voAppender2 AS ILogAppender NO-UNDO.
+        
+        voAppender1 = LogAppenderFactory:getAppender("TestAppender", "log4oe.Tests.Stubs.StubLogAppender").
+        voAppender2 = LogAppenderFactory:getAppender("TestAppender", "log4oe.Tests.Stubs.StubLogAppender").
+        
+        Assert:AreEqual(voAppender1, voAppender2).
+        
+    END METHOD.
+
+    @Test.
     METHOD PUBLIC VOID ResetFactory_ResetsObjects():
         
         DEFINE VARIABLE voAppender AS ILogAppender NO-UNDO.
