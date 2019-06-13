@@ -33,10 +33,37 @@ CLASS log4oe.LoggerConfig.AppenderConfiguration:
 	CONSTRUCTOR PUBLIC AppenderConfiguration (INPUT pcAppenderName AS CHARACTER, INPUT pcAppenderType AS CHARACTER):
 		SUPER().
 		
+		CheckAppenderType(pcAppenderType).
+		
 		ASSIGN AppenderName = pcAppenderName
 		       AppenderType = pcAppenderType.
 		
 	END CONSTRUCTOR.
+	
+	METHOD PRIVATE VOID CheckAppenderType(INPUT pcAppenderType AS CHARACTER):
+	    
+	    DEFINE VARIABLE voClass AS Progress.Lang.Class NO-UNDO.
+	    
+	    DO ON ERROR UNDO, THROW:
+	            
+           ASSIGN voClass = Progress.Lang.Class:GetClass(pcAppenderType).
+           
+           // Allow catch block to pickup any further errors from accessing an invalid object
+           IF NOT voClass:IsA("log4oe.LogAppender.ILogAppender") THEN
+           DO:
+               // Throw any error - it will be caught in CATCH and converted to correct type
+               UNDO, THROW NEW Progress.Lang.AppError().
+           END.
+        
+           CATCH e AS Progress.Lang.Error :
+               
+               UNDO, THROW NEW Progress.Lang.AppError("Invalid Appender Type", -2). 
+           		
+           END CATCH.
+           
+        END. 
+	    
+	END METHOD.
 	
 	METHOD PUBLIC VOID AddConfigurationProperty(INPUT pcName AS CHARACTER, INPUT pcValue AS CHARACTER):
 	    

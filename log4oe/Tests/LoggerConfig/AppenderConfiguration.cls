@@ -36,6 +36,26 @@ CLASS log4oe.Tests.LoggerConfig.AppenderConfiguration:
         Assert:AreEqual(voConfig:AppenderType, "log4oe.Tests.Stubs.StubLogAppender").
     END METHOD.
     
+    @Test(expected="Progress.Lang.AppError").
+    METHOD PUBLIC VOID Constructor_BlankType():
+        NEW AppenderConfiguration("TestAppenderName", "").
+    END METHOD.
+    
+    @Test(expected="Progress.Lang.AppError").
+    METHOD PUBLIC VOID Constructor_InvalidType():
+        NEW AppenderConfiguration("TestAppenderName", "asdfasfsadf").
+    END METHOD.
+    
+    @Test(expected="Progress.Lang.AppError").
+    METHOD PUBLIC VOID Constructor_NonAppenderType():
+        NEW AppenderConfiguration("TestAppenderName", "Progress.Lang.Object").
+    END METHOD.
+    
+    @Test(expected="Progress.Lang.AppError").
+    METHOD PUBLIC VOID Constructor_NullType():
+        NEW AppenderConfiguration("TestAppenderName", ?).
+    END METHOD.
+    
     @Test.
     METHOD PUBLIC VOID AddConfigurationProperty_DoesNotError():
         // Not much can be tested here. Just checking that it does not error.
