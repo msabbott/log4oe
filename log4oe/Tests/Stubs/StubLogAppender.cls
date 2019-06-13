@@ -15,6 +15,12 @@ USING log4oe.LoggerConfig.ILoggerConfig.
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
 CLASS log4oe.Tests.Stubs.StubLogAppender IMPLEMENTS ILogAppender:
+    
+    DEFINE PRIVATE TEMP-TABLE ttAppenderProperty NO-UNDO
+        FIELD PropertyName AS CHARACTER
+        FIELD PropertyValue AS CHARACTER
+        
+            INDEX PriKey IS PRIMARY UNIQUE PropertyName ASCENDING.
 
     DEFINE PUBLIC PROPERTY ConfigObject AS ILoggerConfig NO-UNDO
     PUBLIC GET.
@@ -73,6 +79,33 @@ CLASS log4oe.Tests.Stubs.StubLogAppender IMPLEMENTS ILogAppender:
     END METHOD.
     
     METHOD PUBLIC VOID setProperty(INPUT pcPropertyName AS CHARACTER, INPUT pcPropertyValue AS CHARACTER):
+        
+        FIND FIRST ttAppenderProperty
+             WHERE ttAppenderProperty.PropertyName = pcPropertyName
+                   EXCLUSIVE-LOCK NO-ERROR.
+                   
+        IF NOT AVAILABLE ttAppenderProperty THEN
+        DO:
+            CREATE ttAppenderProperty.
+            ASSIGN ttAppenderProperty.PropertyName = pcPropertyName.
+        END.
+        
+        ASSIGN ttAppenderProperty.PropertyValue = pcPropertyValue.
+    END METHOD.
+    
+    METHOD PUBLIC CHARACTER getProperty(INPUT pcPropertyName AS CHARACTER):
+        
+        FIND FIRST ttAppenderProperty
+             WHERE ttAppenderProperty.PropertyName = pcPropertyName
+                   EXCLUSIVE-LOCK NO-ERROR.
+                   
+        IF AVAILABLE ttAppenderProperty THEN
+        DO:
+            RETURN ttAppenderProperty.PropertyValue. 
+        END.
+        
+        RETURN ?.
+        
     END METHOD.
 
 END CLASS.
