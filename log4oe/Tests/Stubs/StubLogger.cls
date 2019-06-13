@@ -16,6 +16,10 @@ USING log4oe.LogAppender.ILogAppender.
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
 CLASS log4oe.Tests.Stubs.StubLogger IMPLEMENTS ILogger:
+    
+    DEFINE PROTECTED TEMP-TABLE ttAppenderObject NO-UNDO
+        FIELD AppenderObject AS Progress.Lang.Object
+        INDEX NameKey IS PRIMARY UNIQUE AppenderObject ASCENDING.
 
     DEFINE PUBLIC PROPERTY ConfigObject AS ILoggerConfig NO-UNDO
     PUBLIC GET.
@@ -123,6 +127,22 @@ CLASS log4oe.Tests.Stubs.StubLogger IMPLEMENTS ILogger:
 
     METHOD PUBLIC VOID addLogAppender( INPUT poAppender AS ILogAppender ):
         AppenderObject = poAppender.
+        
+        CREATE ttAppenderObject.
+        ASSIGN ttAppenderObject.AppenderObject = poAppender.
+        
+    END METHOD.
+    
+    METHOD PUBLIC INTEGER countLogAppenders():
+        
+        DEFINE VARIABLE viCount AS INTEGER NO-UNDO INITIAL 0.
+        
+        FOR EACH ttAppenderObject NO-LOCK:
+            ASSIGN viCount = viCount + 1.
+        END.
+        
+        RETURN viCount.
+        
     END METHOD.
 
     METHOD PUBLIC ILoggerConfig getLoggerConfig():
