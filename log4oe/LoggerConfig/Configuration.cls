@@ -97,7 +97,7 @@ CLASS log4oe.LoggerConfig.Configuration:
         ASSIGN voLogger               = NEW LoggerConfiguration()
                voLogger:LoggerName    = pcName
                voLogger:LoggerType    = pcType
-               voLogger:LoggerLevel   = LogLevel:getLogLevelDesc(piLevel)
+               voLogger:LogLevel      = piLevel
                voLogger:SubsystemName = pcSubsystemName.
                
         IF pcAppenderRef NE ? AND pcAppenderRef NE "" THEN
@@ -120,9 +120,9 @@ CLASS log4oe.LoggerConfig.Configuration:
                 UNDO, THROW NEW Progress.Lang.AppError("Logger must have a name specified", -1).
             END.
                
-            IF pcLogger:LoggerLevel = "?????" THEN
+            IF pcLogger:LogLevel = ? OR pcLogger:LogLevel < 0 OR pcLogger:LogLevel > LogLevel:ALL THEN
             DO:
-                ASSIGN pcLogger:LoggerLevel = LogLevel:getLogLevelDesc(DefaultLogLevel).
+                ASSIGN pcLogger:LogLevel = DefaultLogLevel.
             END.
             
             IF TRIM(pcLogger:SubsystemName) = "" THEN

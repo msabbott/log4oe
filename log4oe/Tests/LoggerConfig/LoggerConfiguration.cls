@@ -42,9 +42,33 @@ CLASS log4oe.Tests.LoggerConfig.LoggerConfiguration:
         
         Assert:IsNull(voConfig:LoggerName).
         Assert:AreEqual(voConfig:LoggerType, "log4oe.Logger.BasicLogger").
-        Assert:AreEqual(voConfig:LoggerLevel, "WARN").
+        Assert:AreEqual(voConfig:LogLevel, LogLevel:WARN).
         Assert:IsNull(voConfig:SubsystemName).
         
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID setLogLevel():
+        voConfig:setLogLevel("ALL").
+        Assert:AreEqual(voConfig:LogLevel, LogLevel:ALL).
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID setLogLevel_InvalidValue():
+        voConfig:setLogLevel("Not a valid level").
+        Assert:AreEqual(voConfig:LogLevel, LogLevel:WARN).
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID setLogLevel_BlankValue():
+        voConfig:setLogLevel("").
+        Assert:AreEqual(voConfig:LogLevel, LogLevel:WARN).
+    END METHOD.
+    
+    @Test.
+    METHOD PUBLIC VOID setLogLevel_NullValue():
+        voConfig:setLogLevel(?).
+        Assert:AreEqual(voConfig:LogLevel, LogLevel:WARN).
     END METHOD.
     
     @Test.
@@ -85,7 +109,7 @@ CLASS log4oe.Tests.LoggerConfig.LoggerConfiguration:
         DEFINE VARIABLE voLogger AS StubLogger NO-UNDO.
         
         ASSIGN voLogger               = NEW StubLogger()
-               voConfig:LoggerLevel   = "ALL"
+               voConfig:LogLevel      = LogLevel:ALL
                voConfig:LoggerName    = "Test LoggerName"
                voConfig:SubsystemName = "Test SubsystemName".
         

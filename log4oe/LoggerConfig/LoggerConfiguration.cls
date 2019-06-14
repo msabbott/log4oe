@@ -31,13 +31,20 @@ CLASS log4oe.LoggerConfig.LoggerConfiguration:
     PUBLIC GET.
     PUBLIC SET.
     
-    DEFINE PUBLIC PROPERTY LoggerLevel AS CHARACTER NO-UNDO INITIAL "WARN"
+    DEFINE PUBLIC PROPERTY LogLevel AS INTEGER NO-UNDO INITIAL 3
     PUBLIC GET.
     PUBLIC SET.
     
     DEFINE PUBLIC PROPERTY SubsystemName AS CHARACTER NO-UNDO INITIAL ?
     PUBLIC GET.
     PUBLIC SET.
+    
+    METHOD PUBLIC VOID setLogLevel(INPUT pcLogLevel AS CHARACTER):
+        IF pcLogLevel NE ? AND pcLogLevel NE "" THEN
+        DO:
+            ASSIGN THIS-OBJECT:LogLevel = log4oe.LogLevel:getLogLevelFromText(pcLogLevel, THIS-OBJECT:LogLevel).
+        END.
+    END METHOD.
     
     METHOD PUBLIC VOID AddAppenderName(INPUT pcAppenderName AS CHARACTER):
         
@@ -54,7 +61,7 @@ CLASS log4oe.LoggerConfig.LoggerConfiguration:
         IF VALID-OBJECT(pcLogger) THEN
         DO:
             pcLogger:setLoggerName(LoggerName).
-            pcLogger:setLogLevel(LogLevel:getLogLevelFromText(LoggerLevel, LogLevel:WARN)).
+            pcLogger:setLogLevel(THIS-OBJECT:LogLevel).
             pcLogger:setSubsystemName(SubsystemName).
             
             FOR EACH ttAppenderName NO-LOCK

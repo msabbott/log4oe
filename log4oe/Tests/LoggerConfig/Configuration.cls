@@ -196,23 +196,23 @@ CLASS log4oe.Tests.LoggerConfig.Configuration:
     METHOD PUBLIC VOID AddLogger_WithLevel():
         DEFINE VARIABLE voLoggerConfig AS LoggerConfiguration NO-UNDO.
         voLoggerConfig = voConfig:AddLogger("TestLogger1", LogLevel:ALL, "TestAppender").
-        Assert:AreEqual(voLoggerConfig:LoggerLevel, "ALL").
+        Assert:AreEqual(voLoggerConfig:LogLevel, LogLevel:ALL).
     END METHOD.
     
     @Test.
     METHOD PUBLIC VOID AddLogger_WithInvalidLevel():
         DEFINE VARIABLE voLoggerConfig AS LoggerConfiguration NO-UNDO.
         voLoggerConfig = voConfig:AddLogger("TestLogger1", 999, "TestAppender").
-        Assert:AreEqual(voLoggerConfig:LoggerLevel, "WARN").
+        Assert:AreEqual(voLoggerConfig:LogLevel, LogLevel:WARN).
         voLoggerConfig = voConfig:AddLogger("TestLogger2", -99, "TestAppender").
-        Assert:AreEqual(voLoggerConfig:LoggerLevel, "WARN").
+        Assert:AreEqual(voLoggerConfig:LogLevel, LogLevel:WARN).
     END METHOD.
     
     @Test.
     METHOD PUBLIC VOID AddLogger_WithNullLevel():
         DEFINE VARIABLE voLoggerConfig AS LoggerConfiguration NO-UNDO.
         voLoggerConfig = voConfig:AddLogger("TestLogger1", ?, "TestAppender").
-        Assert:AreEqual(voLoggerConfig:LoggerLevel, "WARN").
+        Assert:AreEqual(voLoggerConfig:LogLevel, LogLevel:WARN).
     END METHOD.
     
     @Test.
