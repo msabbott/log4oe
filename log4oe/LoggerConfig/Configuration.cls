@@ -10,6 +10,7 @@
   ----------------------------------------------------------------------*/
 
 USING Progress.Lang.*.
+USING log4oe.LoggerConfig.IConfiguration.
 USING log4oe.LoggerConfig.AppenderConfiguration.
 USING log4oe.LoggerConfig.LoggerConfiguration.
 USING log4oe.LogAppender.ILogAppender.
@@ -20,7 +21,7 @@ USING log4oe.LogLevel.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
-CLASS log4oe.LoggerConfig.Configuration:
+CLASS log4oe.LoggerConfig.Configuration IMPLEMENTS IConfiguration:
     
     DEFINE PUBLIC PROPERTY DefaultLogLevel AS INTEGER NO-UNDO INITIAL 3
     PUBLIC GET.
