@@ -37,11 +37,6 @@ CLASS log4oe.LogAppender.LogFileAppender INHERITS AbstractLogAppender IMPLEMENTS
     
     DEFINE PRIVATE STREAM OutputFile.
     
-    CONSTRUCTOR LogFileAppender(INPUT pcOutputFileName AS CHARACTER):
-        SUPER().  
-        OutputFileName = pcOutputFileName.      
-    END CONSTRUCTOR.
-    
     CONSTRUCTOR LogFileAppender():
         SUPER().
     END CONSTRUCTOR.

@@ -24,7 +24,8 @@ CLASS log4oe.Tests.LogAppender.LogFileAppender:
     @Before.
     METHOD PUBLIC VOID CreateAppender():
 
-        ASSIGN voAppender = NEW LogFileAppender(INPUT vcFileName).
+        ASSIGN voAppender = NEW LogFileAppender().
+        voAppender:setProperty("filename", vcFileName).
         voAppender:Initialise().
 
     END METHOD.
