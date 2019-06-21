@@ -25,26 +25,8 @@ CLASS log4oe.LoggerFactory:
 
             INDEX idxName IS PRIMARY UNIQUE LoggerName ASCENDING.
 
-    DEFINE PRIVATE STATIC PROPERTY Config AS ILoggerConfig NO-UNDO
-    PRIVATE GET.
-    PRIVATE SET.
-
-    DEFINE PUBLIC STATIC PROPERTY ROOT_LOGGER_NAME AS CHARACTER NO-UNDO INITIAL "log4oeDefaultLogger"
+    DEFINE PUBLIC STATIC PROPERTY ROOT_LOGGER_NAME AS CHARACTER NO-UNDO INITIAL "log4oe.defaultLogger"
     GET.
-
-    METHOD PUBLIC STATIC VOID setConfig(INPUT poConfig AS ILoggerConfig):
-        Config = poConfig.
-    END METHOD.
-
-    METHOD PUBLIC STATIC ILoggerConfig getConfig():
-
-        IF NOT VALID-OBJECT(Config) THEN
-        DO:
-            ASSIGN Config = NEW LogManagerConfig().
-        END.
-
-        RETURN Config.
-    END METHOD.
 
     METHOD PUBLIC STATIC ILogger getLogger():
         RETURN getLogger(INPUT "").
@@ -84,9 +66,6 @@ CLASS log4oe.LoggerFactory:
             
             ASSIGN ttLogger.Logger = voLogger.
 
-            /* Configure the logger */
-            getConfig():ConfigureLogger(voLogger).
-
             RETURN voLogger.
         END.
         ELSE
@@ -99,8 +78,6 @@ CLASS log4oe.LoggerFactory:
     END METHOD.
 
     METHOD PUBLIC STATIC VOID ResetFactory():
-
-        DELETE OBJECT Config NO-ERROR.
 
         FOR EACH ttLogger EXCLUSIVE-LOCK:
             DELETE OBJECT ttLogger.Logger NO-ERROR.

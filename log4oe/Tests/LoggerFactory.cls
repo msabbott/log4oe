@@ -33,20 +33,6 @@ CLASS log4oe.tests.LoggerFactory:
     END METHOD.
 
     @Test.
-    METHOD PUBLIC VOID GetSetConfig():
-
-        DEFINE VARIABLE voConfig AS StubLoggerConfig NO-UNDO.
-
-        ASSIGN voConfig = NEW StubLoggerConfig().
-
-        voConfig:setLogLevel(LogLevel:Info).
-
-        LoggerFactory:setConfig(voConfig).
-
-        Assert:AreEqual(LoggerFactory:getConfig(), voConfig).
-    END METHOD.
-
-    @Test.
     METHOD PUBLIC VOID GetLogger_ReturnsValidObject():
 
         Assert:IsTrue(VALID-OBJECT(LoggerFactory:getLogger())).
@@ -69,24 +55,6 @@ CLASS log4oe.tests.LoggerFactory:
         Assert:IsNotNull(LoggerFactory:getLogger():getLoggerName(), "Logger name is null").
         Assert:AreNotEqual(LoggerFactory:getLogger():getLoggerName(), "", "Logger name is blank").
         
-    END METHOD.
-
-    @Test.
-    METHOD PUBLIC VOID ResetFactory_ResetsConfig():
-
-        DEFINE VARIABLE voConfig AS StubLoggerConfig NO-UNDO.
-
-        ASSIGN voConfig = NEW StubLoggerConfig().
-
-        voConfig:setLogLevel(LogLevel:Info).
-
-        LoggerFactory:setConfig(voConfig).
-
-        LoggerFactory:ResetFactory().
-
-        Assert:IsTrue(VALID-OBJECT(LoggerFactory:getConfig())).
-        Assert:AreNotEqual(LoggerFactory:getConfig():GetClass():TypeName, "log4oe.Tests.Stubs.StubLoggerConfig").
-
     END METHOD.
 
 END CLASS.
