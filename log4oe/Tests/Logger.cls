@@ -42,6 +42,11 @@ CLASS log4oe.tests.Logger:
         LogAppenderFactory:ResetFactory().
         DELETE OBJECT voConfig NO-ERROR.
     END METHOD.
+    
+    @AfterClass.
+    METHOD PUBLIC VOID DeleteLogFile():
+        OS-DELETE VALUE("messages.log").
+    END METHOD.
 
     @Test.
     METHOD PUBLIC VOID Log_ShouldLog():
