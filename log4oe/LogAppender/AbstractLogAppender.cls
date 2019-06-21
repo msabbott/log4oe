@@ -11,28 +11,10 @@
 
 USING Progress.Lang.*.
 USING log4oe.LogAppender.ILogAppender.
-USING log4oe.LoggerConfig.ILoggerConfig.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
 CLASS log4oe.LogAppender.AbstractLogAppender IMPLEMENTS ILogAppender ABSTRACT:
-
-    DEFINE PROTECTED PROPERTY Config AS ILoggerConfig NO-UNDO
-    PROTECTED GET.
-    PROTECTED SET.
-
-    METHOD PUBLIC VOID setLoggerConfig(INPUT poLoggerConfig AS ILoggerConfig):
-
-        IF VALID-OBJECT(poLoggerConfig) THEN
-        DO:
-            ASSIGN Config = poLoggerConfig.
-        END.
-
-    END METHOD.
-
-    METHOD PUBLIC ILoggerConfig getLoggerConfig():
-        RETURN Config.
-    END METHOD.
     
     METHOD PUBLIC VOID setProperty(INPUT pcPropertyName AS CHARACTER, INPUT pcPropertyValue AS CHARACTER):
         // Do nothing

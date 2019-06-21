@@ -11,7 +11,6 @@
 USING Progress.Lang.*.
 USING OEUnit.Assertion.*.
 USING log4oe.LogAppender.DSLogManagerAppender.
-USING log4oe.LoggerConfig.DSLogManagerConfig.
 USING log4oe.LogLevel.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
@@ -33,40 +32,6 @@ CLASS log4oe.Tests.LogAppender.DSLogManagerAppender:
         DELETE OBJECT voAppender NO-ERROR.
     END METHOD.
 
-    @Test.
-    METHOD PUBLIC VOID setLoggerConfig():
-
-        DEFINE VARIABLE voConfig AS DSLogManagerConfig NO-UNDO.
-
-        ASSIGN voConfig = NEW DSLogManagerConfig().
-
-        voAppender:setLoggerConfig(INPUT voConfig).
-
-        Assert:AreEqual(voAppender:getLoggerConfig(), voConfig).
-
-        FINALLY:
-            DELETE OBJECT voConfig NO-ERROR.
-        END FINALLY.
-
-    END METHOD.
-
-    @Test.
-    METHOD PUBLIC VOID setLoggerConfig_InvalidConfigIsIgnored():
-
-        DEFINE VARIABLE voConfig AS DSLogManagerConfig NO-UNDO.
-
-        ASSIGN voConfig = NEW DSLogManagerConfig().
-
-        voAppender:setLoggerConfig(INPUT voConfig).
-        voAppender:setLoggerConfig(INPUT ?).
-
-        Assert:AreEqual(voAppender:getLoggerConfig(), voConfig).
-
-        FINALLY:
-            DELETE OBJECT voConfig NO-ERROR.
-        END FINALLY.
-
-    END METHOD.
 
     @Test. @Ignore. // Requires a DataServer connection in order for tests to complete
     METHOD PUBLIC VOID Log():
@@ -74,17 +39,7 @@ CLASS log4oe.Tests.LogAppender.DSLogManagerAppender:
         // Difficult to confirm what is logged with this. Test only confirms that
         // no error was raised by logging.
 
-        DEFINE VARIABLE voConfig AS DSLogManagerConfig NO-UNDO.
-
-        ASSIGN voConfig = NEW DSLogManagerConfig().
-
-        voAppender:setLoggerConfig(INPUT voConfig).
-
         voAppender:Log(LogLevel:INFO, "Test Message").
-
-        FINALLY:
-            DELETE OBJECT voConfig NO-ERROR.
-        END FINALLY.
 
     END METHOD.
 

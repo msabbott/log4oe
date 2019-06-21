@@ -15,14 +15,12 @@ USING log4oe.LogLevel.
 USING log4oe.LoggerFactory.
 USING log4oe.LogAppender.LogAppenderFactory.
 USING log4oe.LoggerConfig.BasicConfiguration.
-USING log4oe.Tests.Stubs.StubLoggerConfig.
 USING log4oe.Tests.Stubs.StubLogAppender.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
 CLASS log4oe.tests.Logger:
 
-    DEFINE PUBLIC VARIABLE voConfig   AS StubLoggerConfig NO-UNDO.
     DEFINE PUBLIC VARIABLE voAppender AS StubLogAppender  NO-UNDO.
     
     @Before.
@@ -40,7 +38,6 @@ CLASS log4oe.tests.Logger:
     METHOD PUBLIC VOID ResetFactoryConfiguration():
         LoggerFactory:ResetFactory().
         LogAppenderFactory:ResetFactory().
-        DELETE OBJECT voConfig NO-ERROR.
     END METHOD.
     
     @AfterClass.

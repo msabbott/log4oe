@@ -13,7 +13,6 @@ USING OEUnit.Assertion.*.
 USING log4oe.Logger.ILogger.
 USING log4oe.LogLevel.
 USING log4oe.LoggerFactory.
-USING log4oe.Tests.Stubs.StubLoggerConfig.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 

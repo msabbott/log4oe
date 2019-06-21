@@ -10,7 +10,6 @@
 
 USING Progress.Lang.*.
 USING log4oe.LogAppender.ILogAppender.
-USING log4oe.LoggerConfig.ILoggerConfig.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
@@ -21,10 +20,6 @@ CLASS log4oe.Tests.Stubs.StubLogAppender IMPLEMENTS ILogAppender:
         FIELD PropertyValue AS CHARACTER
         
             INDEX PriKey IS PRIMARY UNIQUE PropertyName ASCENDING.
-
-    DEFINE PUBLIC PROPERTY ConfigObject AS ILoggerConfig NO-UNDO
-    PUBLIC GET.
-    PUBLIC SET.
 
     DEFINE PUBLIC PROPERTY Initialised AS LOGICAL NO-UNDO INITIAL FALSE
     PUBLIC GET.
@@ -69,15 +64,7 @@ CLASS log4oe.Tests.Stubs.StubLogAppender IMPLEMENTS ILogAppender:
                LoggedSubsystemName = pcSubsystemName
                LoggedLevel         = piLogLevel.
     END METHOD.
-
-    METHOD PUBLIC ILoggerConfig getLoggerConfig():
-        RETURN ConfigObject.
-    END METHOD.
-
-    METHOD PUBLIC VOID setLoggerConfig(INPUT poLoggerConfig AS ILoggerConfig):
-        ConfigObject = poLoggerConfig.
-    END METHOD.
-    
+   
     METHOD PUBLIC VOID setProperty(INPUT pcPropertyName AS CHARACTER, INPUT pcPropertyValue AS CHARACTER):
         
         FIND FIRST ttAppenderProperty

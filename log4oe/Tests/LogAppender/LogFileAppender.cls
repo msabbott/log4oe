@@ -12,7 +12,6 @@
 USING Progress.Lang.*.
 USING OEUnit.Assertion.*.
 USING log4oe.LogAppender.LogFileAppender.
-USING log4oe.LoggerConfig.LogFileConfig.
 USING log4oe.LogLevel.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
@@ -57,40 +56,6 @@ CLASS log4oe.Tests.LogAppender.LogFileAppender:
         
     END METHOD.
 
-    @Test.
-    METHOD PUBLIC VOID setLoggerConfig():
-
-        DEFINE VARIABLE voConfig AS LogFileConfig NO-UNDO.
-
-        ASSIGN voConfig = NEW LogFileConfig().
-
-        voAppender:setLoggerConfig(INPUT voConfig).
-
-        Assert:AreEqual(voAppender:getLoggerConfig(), voConfig).
-
-        FINALLY:
-            DELETE OBJECT voConfig NO-ERROR.
-        END FINALLY.
-
-    END METHOD.
-
-    @Test.
-    METHOD PUBLIC VOID setLoggerConfig_InvalidConfigIsIgnored():
-
-        DEFINE VARIABLE voConfig AS LogFileConfig NO-UNDO.
-
-        ASSIGN voConfig = NEW LogFileConfig().
-
-        voAppender:setLoggerConfig(INPUT voConfig).
-        voAppender:setLoggerConfig(INPUT ?).
-
-        Assert:AreEqual(voAppender:getLoggerConfig(), voConfig).
-
-        FINALLY:
-            DELETE OBJECT voConfig NO-ERROR.
-        END FINALLY.
-
-    END METHOD.
 
     @Test.
     METHOD PUBLIC VOID Log():
@@ -98,17 +63,7 @@ CLASS log4oe.Tests.LogAppender.LogFileAppender:
         // Difficult to confirm what is logged with this. Test only confirms that
         // no error was raised by logging.
 
-        DEFINE VARIABLE voConfig AS LogFileConfig NO-UNDO.
-
-        ASSIGN voConfig = NEW LogFileConfig().
-
-        voAppender:setLoggerConfig(INPUT voConfig).
-
         voAppender:Log(LogLevel:WARN, "Test Message").
-
-        FINALLY:
-            DELETE OBJECT voConfig NO-ERROR.
-        END FINALLY.
 
     END METHOD.
 

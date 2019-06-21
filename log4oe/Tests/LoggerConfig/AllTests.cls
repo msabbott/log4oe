@@ -22,10 +22,7 @@ CLASS log4oe.tests.LoggerConfig.AllTests INHERITS TestSuite:
     AddTest(NEW log4oe.Tests.LoggerConfig.AppenderConfiguration()).
     AddTest(NEW log4oe.Tests.LoggerConfig.BasicConfiguration()).
     AddTest(NEW log4oe.Tests.LoggerConfig.Configuration()).
-    AddTest(NEW log4oe.Tests.LoggerConfig.DSLogManagerConfig()).
-    AddTest(NEW log4oe.Tests.LoggerConfig.LogFileConfig()).
     AddTest(NEW log4oe.Tests.LoggerConfig.LoggerConfiguration()).
-    AddTest(NEW log4oe.Tests.LoggerConfig.LogManagerConfig()).
 
   END CONSTRUCTOR.
 

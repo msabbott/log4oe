@@ -11,13 +11,8 @@
 
 USING Progress.Lang.*.
 USING log4oe.LogAppender.ILogAppender.
-USING log4oe.LoggerConfig.ILoggerConfig.
 
 INTERFACE log4oe.Logger.ILogger:
-
-    METHOD PUBLIC VOID setLoggerConfig(INPUT poLoggerConfig AS ILoggerConfig).
-
-    METHOD PUBLIC ILoggerConfig getLoggerConfig().
     
     METHOD PUBLIC VOID setLoggerName(INPUT pcLoggerName AS CHARACTER).
     

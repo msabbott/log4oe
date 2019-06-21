@@ -86,10 +86,6 @@ CLASS log4oe.LogAppender.LogManagerAppender INHERITS AbstractLogAppender IMPLEME
         DO:
             LOG-MANAGER:WRITE-MESSAGE(pcMessage, pcSubsystemName).
         END.
-        ELSE IF VALID-OBJECT(Config) AND Config:getSubsystemName() NE "" AND Config:getSubsystemName() NE ? THEN
-        DO:
-            LOG-MANAGER:WRITE-MESSAGE(pcMessage, Config:getSubsystemName()).
-        END.
         ELSE
         DO:
             LOG-MANAGER:WRITE-MESSAGE(pcMessage).

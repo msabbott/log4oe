@@ -12,7 +12,6 @@
 USING Progress.Lang.*.
 USING log4oe.Logger.ILogger.
 USING log4oe.LogAppender.ILogAppender.
-USING log4oe.LoggerConfig.ILoggerConfig.
 USING log4oe.LogLevel.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
@@ -21,11 +20,6 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
 
     DEFINE PROTECTED TEMP-TABLE ttAppender NO-UNDO
         FIELD Appender AS Progress.Lang.Object.
-
-
-    DEFINE PROTECTED PROPERTY Config AS ILoggerConfig NO-UNDO
-    PROTECTED GET.
-    PROTECTED SET.
     
     DEFINE PRIVATE PROPERTY LoggerName AS CHARACTER NO-UNDO
     PRIVATE GET.
@@ -55,19 +49,6 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
             ASSIGN ttAppender.Appender = poAppender.
         END.
 
-    END METHOD.
-
-    METHOD PUBLIC VOID setLoggerConfig(INPUT poLoggerConfig AS ILoggerConfig):
-
-        IF VALID-OBJECT(poLoggerConfig) THEN
-        DO:
-            ASSIGN Config = poLoggerConfig.
-        END.
-
-    END METHOD.
-
-    METHOD PUBLIC ILoggerConfig getLoggerConfig():
-        RETURN Config.
     END METHOD.
     
     METHOD PUBLIC VOID setLoggerName(INPUT pcLoggerName AS CHARACTER):
@@ -218,7 +199,7 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
     END METHOD.
 
     METHOD PROTECTED LOGICAL ShouldLog (INPUT piLogLevel AS INTEGER):
-        RETURN piLogLevel <= CurrentLogLevel OR (VALID-OBJECT(Config) AND piLogLevel <= Config:getLogLevel()).
+        RETURN piLogLevel <= CurrentLogLevel.
     END METHOD.
 
 END CLASS.

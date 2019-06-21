@@ -10,13 +10,8 @@
   ----------------------------------------------------------------------*/
 
 USING Progress.Lang.*.
-USING log4oe.LoggerConfig.ILoggerConfig.
 
 INTERFACE log4oe.LogAppender.ILogAppender:
-
-    METHOD PUBLIC VOID setLoggerConfig(INPUT poLoggerConfig AS ILoggerConfig).
-
-    METHOD PUBLIC ILoggerConfig getLoggerConfig().
     
     METHOD PUBLIC VOID setProperty(INPUT pcPropertyName AS CHARACTER, INPUT pcPropertyValue AS CHARACTER).
 

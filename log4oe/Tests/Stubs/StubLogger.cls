@@ -10,7 +10,6 @@
 
 USING Progress.Lang.*.
 USING log4oe.Logger.ILogger.
-USING log4oe.LoggerConfig.ILoggerConfig.
 USING log4oe.LogAppender.ILogAppender.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
@@ -20,10 +19,6 @@ CLASS log4oe.Tests.Stubs.StubLogger IMPLEMENTS ILogger:
     DEFINE PROTECTED TEMP-TABLE ttAppenderObject NO-UNDO
         FIELD AppenderObject AS Progress.Lang.Object
         INDEX NameKey IS PRIMARY UNIQUE AppenderObject ASCENDING.
-
-    DEFINE PUBLIC PROPERTY ConfigObject AS ILoggerConfig NO-UNDO
-    PUBLIC GET.
-    PUBLIC SET.
 
     DEFINE PUBLIC PROPERTY AppenderObject AS ILogAppender NO-UNDO
     PUBLIC GET.
@@ -143,14 +138,6 @@ CLASS log4oe.Tests.Stubs.StubLogger IMPLEMENTS ILogger:
         
         RETURN viCount.
         
-    END METHOD.
-
-    METHOD PUBLIC ILoggerConfig getLoggerConfig():
-        RETURN ConfigObject.
-    END METHOD.
-
-    METHOD PUBLIC VOID setLoggerConfig( INPUT poLoggerConfig AS ILoggerConfig ):
-        ConfigObject = poLoggerConfig.
     END METHOD.
     
     METHOD PUBLIC VOID setLoggerName(INPUT pcLoggerName AS CHARACTER):

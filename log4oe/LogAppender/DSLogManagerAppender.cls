@@ -87,10 +87,6 @@ CLASS log4oe.LogAppender.DSLogManagerAppender INHERITS AbstractLogAppender IMPLE
         DO:
             DSLOG-MANAGER:WRITE-MESSAGE(pcMessage, pcSubsystem).
         END.
-        ELSE IF VALID-OBJECT(Config) AND Config:getSubsystemName() NE "" AND Config:getSubsystemName() NE ? THEN
-        DO:
-            DSLOG-MANAGER:WRITE-MESSAGE(pcMessage, Config:getSubsystemName()).
-        END.
         ELSE
         DO:
             DSLOG-MANAGER:WRITE-MESSAGE(pcMessage).

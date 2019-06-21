@@ -12,8 +12,6 @@
 USING Progress.Lang.*.
 USING log4oe.Logger.ILogger.
 USING log4oe.Logger.
-USING log4oe.LoggerConfig.ILoggerConfig.
-USING log4oe.LoggerConfig.LogManagerConfig.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
