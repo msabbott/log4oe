@@ -25,7 +25,7 @@ CLASS log4oe.LoggerConfig.Configuration IMPLEMENTS IConfiguration:
     
     DEFINE PUBLIC PROPERTY DefaultLogLevel AS INTEGER NO-UNDO INITIAL 3
     PUBLIC GET.
-    PRIVATE SET.
+    PROTECTED SET.
     
     DEFINE PROTECTED TEMP-TABLE ttAppender NO-UNDO
         FIELD Appender AS Progress.Lang.Object
