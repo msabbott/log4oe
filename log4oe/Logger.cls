@@ -12,6 +12,8 @@
 USING log4oe.LogLevel.
 USING log4oe.Logger.ILogger.
 USING log4oe.LoggerFactory.
+USING log4oe.LoggerConfig.Configuration.
+USING log4oe.LoggerConfig.BasicConfiguration.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
@@ -20,6 +22,21 @@ CLASS log4oe.Logger:
     DEFINE PROTECTED STATIC PROPERTY DefaultLogger AS ILogger NO-UNDO
     PROTECTED GET.
     PROTECTED SET.
+    
+    DEFINE PROTECTED STATIC PROPERTY DefaultConfiguration AS Configuration NO-UNDO
+    PROTECTED GET.
+    PROTECTED SET.
+    
+    METHOD PROTECTED STATIC VOID InitialiseDefaultConfiguration():
+
+        IF NOT VALID-OBJECT(DefaultConfiguration) THEN
+        DO:
+            DELETE OBJECT DefaultLogger NO-ERROR.
+            ASSIGN DefaultConfiguration = NEW BasicConfiguration().
+            DefaultConfiguration:Apply().
+        END.
+        
+    END METHOD.
 
     METHOD PROTECTED STATIC VOID InitialiseDefaultLogger():
 
@@ -33,11 +50,13 @@ CLASS log4oe.Logger:
     METHOD PUBLIC STATIC VOID ResetLogger():
 
         DELETE OBJECT DefaultLogger NO-ERROR.
+        DELETE OBJECT DefaultConfiguration NO-ERROR.
 
     END METHOD.
 
     METHOD PUBLIC STATIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT pcMessage AS CHARACTER):
 
+        InitialiseDefaultConfiguration().
         InitialiseDefaultLogger().
         DefaultLogger:Log(INPUT piLogLevel, INPUT pcMessage).
 
@@ -45,6 +64,7 @@ CLASS log4oe.Logger:
 
     METHOD PUBLIC STATIC VOID Log(INPUT piLogLevel AS INTEGER, INPUT peError AS Progress.Lang.Error):
 
+        InitialiseDefaultConfiguration().
         InitialiseDefaultLogger().
         DefaultLogger:Log(INPUT piLogLevel, INPUT peError).
 

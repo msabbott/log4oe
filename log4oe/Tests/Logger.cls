@@ -13,27 +13,22 @@ USING OEUnit.Assertion.*.
 USING log4oe.Logger.
 USING log4oe.LogLevel.
 USING log4oe.LoggerFactory.
+USING log4oe.LogAppender.LogAppenderFactory.
+USING log4oe.LoggerConfig.BasicConfiguration.
 USING log4oe.Tests.Stubs.StubLoggerConfig.
+USING log4oe.Tests.Stubs.StubLogAppender.
 
 BLOCK-LEVEL ON ERROR UNDO, THROW.
 
 CLASS log4oe.tests.Logger:
 
-    DEFINE PUBLIC VARIABLE voConfig AS StubLoggerConfig NO-UNDO.
-
+    DEFINE PUBLIC VARIABLE voConfig   AS StubLoggerConfig NO-UNDO.
+    DEFINE PUBLIC VARIABLE voAppender AS StubLogAppender  NO-UNDO.
+    
     @Before.
-    METHOD PUBLIC VOID ConfigureConfigObject():
-        IF NOT VALID-OBJECT(voConfig) THEN
-        DO:
-            ASSIGN voConfig = NEW StubLoggerConfig().
-        END.
-        voConfig:setLogLevel(LogLevel:INFO).
-    END METHOD.
-
-    @Before.
-    METHOD PUBLIC VOID ConfigureFactory():
-        ConfigureConfigObject().
-        LoggerFactory:setConfig(INPUT voConfig).
+    METHOD PUBLIC VOID PreconfigureAppender():
+        voAppender = DYNAMIC-CAST(LogAppenderFactory:getAppender(BasicConfiguration:DefaultLogAppenderName, "log4oe.Tests.Stubs.StubLogAppender"),
+                                  "log4oe.Tests.Stubs.StubLogAppender").
     END METHOD.
 
     @After.
@@ -44,6 +39,7 @@ CLASS log4oe.tests.Logger:
     @After.
     METHOD PUBLIC VOID ResetFactoryConfiguration():
         LoggerFactory:ResetFactory().
+        LogAppenderFactory:ResetFactory().
         DELETE OBJECT voConfig NO-ERROR.
     END METHOD.
 
@@ -51,8 +47,8 @@ CLASS log4oe.tests.Logger:
     METHOD PUBLIC VOID Log_ShouldLog():
 
         Logger:Log(LogLevel:WARN, "Message").
-        Assert:AreEqual(voConfig:LogAppender:LoggedMessage, "Message").
-        Assert:AreEqual(voConfig:LogAppender:LoggedLevel, LogLevel:WARN).
+        Assert:AreEqual(voAppender:LoggedMessage, "Message").
+        Assert:AreEqual(voAppender:LoggedLevel, LogLevel:WARN).
 
     END METHOD.
 
@@ -60,7 +56,7 @@ CLASS log4oe.tests.Logger:
     METHOD PUBLIC VOID Log_ShouldNotLog():
 
         Logger:Log(LogLevel:DEBUG, "Message").
-        Assert:AreNotEqual(voConfig:LogAppender:LoggedMessage, "Message").
+        Assert:AreNotEqual(voAppender:LoggedMessage, "Message").
 
     END METHOD.
 
@@ -72,8 +68,8 @@ CLASS log4oe.tests.Logger:
         ASSIGN voError = NEW Progress.Lang.AppError().
 
         Logger:Log(LogLevel:WARN, voError).
-        Assert:AreEqual(voConfig:LogAppender:LoggedError, voError).
-        Assert:AreEqual(voConfig:LogAppender:LoggedLevel, LogLevel:WARN).
+        Assert:AreEqual(voAppender:LoggedError, voError).
+        Assert:AreEqual(voAppender:LoggedLevel, LogLevel:WARN).
 
     END METHOD.
 
@@ -81,7 +77,7 @@ CLASS log4oe.tests.Logger:
     METHOD PUBLIC VOID LogError_ShouldNotLog():
 
         Logger:Log(LogLevel:DEBUG, NEW Progress.Lang.AppError()).
-        Assert:IsNull(voConfig:LogAppender:LoggedError).
+        Assert:IsNull(voAppender:LoggedError).
 
     END METHOD.
 
