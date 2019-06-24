@@ -105,7 +105,7 @@ CLASS log4oe.Logger.AbstractLogger IMPLEMENTS ILogger ABSTRACT:
 
                     IF VALID-OBJECT(voAppender) THEN
                     DO:
-                        voAppender:Log(piLogLevel, pcMessage).
+                        voAppender:Log(piLogLevel, SubsystemName, pcMessage).
                     END.
                 END.
                 ELSE
