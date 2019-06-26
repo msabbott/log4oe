@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration loglevel="warn">
+    <Appenders>
+        <Appender type="LogManager" />
+    </Appenders>
+    <Loggers>
+        <Logger name="Test" level="warn" subsystem="Subsystem">
+            <AppenderRef ref="LogManager" />
+            <AppenderRef ref="LogFile" />
+        </Logger>
+        <Logger name="Debug" level="debug">
+            <AppenderRef ref="LogManager" />
+        </Logger>
+    </Loggers>
+</Configuration>

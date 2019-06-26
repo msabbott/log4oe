@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration loglevel="warn">
+    <Appenders>
+        <Appender type="LogManager" name="LogManager">
+            <Property name="FileName" value="C:\users\mabbott\Desktop\Logmanager.txt" />
+            <Property name="loglevel" value="info" />
+        </Appender>
+        <Appender type="LogFile" name="LogFile">
+            <Property name="FileName" value="C:\users\mabbott\desktop\fileappender.log" />
+        </Appender>
+    </Appenders>
+    <Loggers>
+        <Logger name="Test" level="warn" subsystem="Subsystem">
+            <AppenderRef />
+            <AppenderRef ref="LogFile" />
+        </Logger>
+        <Logger name="Debug" level="debug">
+            <AppenderRef ref="LogManager" />
+        </Logger>
+    </Loggers>
+</Configuration>
